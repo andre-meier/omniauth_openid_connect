@@ -49,6 +49,8 @@ Configuration details:
   e.g. `state: Proc.new{ SecureRandom.hex(32) }`
   * `nonce` is optional. If don't want to pass "nonce" parameter to provider, You should specify
   `false` to `send_nonce` option. (default true)
+  * If you dont want to pass `scope` to provider on authorization-redirects, you should specify 
+  `false` to `send_scope` option. (default true)
   * Support for other client authentication methods. If don't specified
   `:client_auth_method` option, automatically set `:basic`.
   * Use "OpenID Connect Discovery", You should specify `true` to `discovery` option. (default false)
