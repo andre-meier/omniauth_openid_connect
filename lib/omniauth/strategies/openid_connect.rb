@@ -140,7 +140,11 @@ module OmniAuth
         resource = "#{ resource }:#{ client_options.port }" if client_options.port
         resource = "#{ resource }/oauth2"
 
-        ::OpenIDConnect::Discovery::Provider.discover!(resource).issuer
+        if options.discovery
+          ::OpenIDConnect::Discovery::Provider.discover!(resource).issuer
+        else
+          resource
+        end
       end
 
       def discover!
