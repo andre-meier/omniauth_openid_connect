@@ -18,10 +18,10 @@ module OmniAuth
         host: nil,
         port: 443,
         send_scope: true,
-        authorization_endpoint: '/authorize',
-        token_endpoint: '/token',
-        userinfo_endpoint: '/userinfo',
-        jwks_uri: '/jwk'
+        authorization_endpoint: '/oauth2/authorize',
+        token_endpoint: '/oauth2/token',
+        userinfo_endpoint: '/oauth2/userinfo',
+        jwks_uri: '/oauth2/jwk'
       }
       option :issuer
       option :discovery, false
@@ -138,6 +138,8 @@ module OmniAuth
       def issuer
         resource = "#{ client_options.scheme }://#{ client_options.host }"
         resource = "#{ resource }:#{ client_options.port }" if client_options.port
+        resource = "#{ resource }/oauth2"
+
         ::OpenIDConnect::Discovery::Provider.discover!(resource).issuer
       end
 
