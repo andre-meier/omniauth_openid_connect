@@ -17,6 +17,7 @@ module OmniAuth
         scheme: 'https',
         host: nil,
         port: 443,
+        send_scope: true,
         authorization_endpoint: '/authorize',
         token_endpoint: '/token',
         userinfo_endpoint: '/userinfo',
@@ -74,7 +75,7 @@ module OmniAuth
       end
 
       def client
-        @client ||= ::OpenIDConnect::Client.new(client_options)
+        @client ||= OmniAuth::OpenIDConnect::Client.new(client_options)
       end
 
       def config
@@ -119,7 +120,7 @@ module OmniAuth
         client.redirect_uri = redirect_uri
         opts = {
           response_type: options.response_type,
-          scope: options.scope,
+          scope: (options.scope if client_options.send_scope),
           state: new_state,
           nonce: (new_nonce if options.send_nonce),
           hd: options.hd,
